@@ -129,10 +129,13 @@
               <label class="flex flex-col gap-2 text-sm font-medium text-slate-200">
                 Modelo
                 <select id="ai-model" class="neon-field">
-                  <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest</option>
-                  <option value="gemini-1.5-pro-latest">gemini-1.5-pro-latest</option>
-                  <option value="gemini-pro">gemini-pro</option>
+                  <option value="gemini-2.5-flash">gemini-2.5-flash (recomendado)</option>
+                  <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+                  <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                  <option value="gemini-flash-latest">gemini-flash-latest</option>
+                  <option value="gemini-pro-latest">gemini-pro-latest</option>
                 </select>
+                <span class="text-xs text-slate-400">Lista obtida via ListModels do Google AI Studio</span>
               </label>
 
               <button type="submit" class="btn-primary w-full">

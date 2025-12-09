@@ -376,7 +376,7 @@ async function sendToAI() {
   aiStatus.textContent = 'Enviando para a IA...';
   persistKey(apiKey);
 
-  const model = aiModelSelect.value || 'gemini-1.5-flash-latest';
+  const model = aiModelSelect.value || 'gemini-2.5-flash';
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const body = {
