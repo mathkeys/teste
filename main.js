@@ -419,7 +419,7 @@ async function sendToAI() {
       .join('\n')
       .trim();
     if (formatted) {
-      formattedOutput.value = formatted;
+      formattedOutput.value = enforceCnpjDigits(formatted);
       aiStatus.textContent = 'Resposta gerada pela IA ✔️';
     } else {
       aiStatus.textContent = 'IA respondeu sem conteúdo utilizável.';
@@ -459,6 +459,16 @@ function clearSavedKey() {
   } catch (error) {
     console.warn('Não foi possível remover a chave salva.', error);
   }
+}
+
+function enforceCnpjDigits(blockText = '') {
+  if (!blockText) return blockText;
+  return blockText.replace(/(CNPJ:\s*)([^\n]*)/i, (match, label, value) => {
+    const sanitized = sanitizeCnpj(value);
+    if (sanitized) return `${label}${sanitized}`;
+    const digits = (value.match(/\d/g) || []).join('');
+    return `${label}${digits || value.trim()}`;
+  });
 }
 
 init();
