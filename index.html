@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cole o pedido bruto e receba o bloco de bonificação formatado automaticamente, com apoio opcional da IA Gemini do Google."
+    />
+    <title>Formatador de Bonificações</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: '#7c3aed',
+              brandAccent: '#22d3ee',
+              brandDark: '#1d1b2f',
+            },
+            fontFamily: {
+              grotesk: ['"Space Grotesk"', 'sans-serif'],
+            },
+            boxShadow: {
+              neon: '0 25px 65px rgba(124, 58, 237, 0.35)',
+              mint: '0 15px 55px rgba(34, 211, 238, 0.35)',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=4" />
+    <script src="main.js" defer></script>
+  </head>
+  <body class="site-body font-grotesk antialiased overflow-x-hidden">
+    <div class="aurora-bg" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+      <span class="scanlines"></span>
+    </div>
+
+    <main class="relative max-w-6xl mx-auto px-4 py-14 lg:py-20 space-y-12">
+      <h1 class="site-title">Formatador de Bonificações com vibe futurista</h1>
+
+      <nav class="top-nav">
+        <a href="#entrada">Entrada</a>
+        <a href="#output">Bloco pronto</a>
+        <a href="#gemini-card">IA Gemini</a>
+        <a href="#checklist">Checklist</a>
+        <a href="#history">Histórico</a>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Alternar modo noturno">
+          <span class="toggle-sun">☀️</span>
+          <span class="toggle-moon">🌙</span>
+        </button>
+      </nav>
+
+      <header class="hero-block space-y-6 text-center lg:text-left">
+        <div class="header-badge">
+          <img src="file:///C:/Users/matheus-chaves/Desktop/bonificacao/aurora.png" alt="Aurora Coop" class="aurora-logo" />
+          <span>assistente + ia</span>
+        </div>
+        <p class="hero-subtitle">
+          Cole qualquer solicitação de bonificação e deixe que o copiloto inteligente normalize tudo sozinho.
+          O bloco final já sai com o padrão obrigatório e você ainda pode pedir uma revisão extra com o Gemini.
+        </p>
+
+        <div class="hero-ornaments">
+          <span class="hero-orb orb-left"></span>
+          <span class="hero-orb orb-right"></span>
+          <span class="hero-line hero-line-top"></span>
+          <span class="hero-line hero-line-bottom"></span>
+        </div>
+
+        <div class="pill-list">
+          <span class="pill">Parser em tempo real</span>
+          <span class="pill">Limpeza automática de CNPJ</span>
+          <span class="pill">Integração Gemini</span>
+          <span class="pill">Copiar em um clique</span>
+        </div>
+      </header>
+
+      <section class="grid gap-8 lg:grid-cols-2" id="entrada">
+        <div class="glass-panel space-y-6">
+          <div class="space-y-1">
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+              <h2 class="text-xl font-semibold text-white">Entrada livre</h2>
+              <div class="quick-ia-cluster">
+                <span class="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE</span>
+                <div class="quick-ia">
+                  <button type="button" id="quick-ai" class="btn-ghost">
+                    IA
+                  </button>
+                  <div class="ia-indicator small" id="ia-indicator-inline" hidden>
+                    <span class="ia-spinner"></span>
+                    <span class="ia-check" hidden>✓</span>
+                    <span class="ia-timer" id="ia-timer-inline"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-slate-400 text-sm">
+              Cole o texto bruto do e-mail, formulário ou áudio transcrito. O assistente identifica tudo sozinho.
+            </p>
+          </div>
+
+          <textarea
+            id="raw-input"
+            rows="12"
+            placeholder="Cole aqui a solicitação completa..."
+            class="neon-field min-h-[280px]"
+          ></textarea>
+
+          <div class="flex flex-wrap gap-3">
+            <button type="button" id="clear-input" class="btn-secondary">
+              Limpar texto
+            </button>
+            <button type="button" id="demo-input" class="btn-secondary">
+              Usar exemplo rápido
+            </button>
+          </div>
+
+          <div class="glass-panel-sub space-y-4" id="gemini-card">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold text-white">Conexão com IA</h3>
+                <p class="text-xs text-slate-400">
+                  Peça para o Gemini revisar o bloco antes de enviar para o time.
+                </p>
+              </div>
+              <span class="chip-soft">Gemini</span>
+            </div>
+
+            <form id="ai-form" class="space-y-4">
+              <label class="flex flex-col gap-2 text-sm font-medium text-slate-200">
+                Chave do Gemini (Google AI Studio)
+                <input
+                  id="ai-key"
+                  type="password"
+                  placeholder="AIza..."
+                  autocomplete="off"
+                  class="neon-field"
+                />
+              </label>
+
+              <label class="flex flex-col gap-2 text-sm font-medium text-slate-200">
+                Modelo
+                <select id="ai-model" class="neon-field">
+                  <option value="gemini-2.5-flash">gemini-2.5-flash (recomendado)</option>
+                  <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+                  <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                  <option value="gemini-flash-latest">gemini-flash-latest</option>
+                  <option value="gemini-pro-latest">gemini-pro-latest</option>
+                </select>
+                <span class="text-xs text-slate-400">Lista obtida via ListModels do Google AI Studio</span>
+              </label>
+
+              <button type="submit" class="btn-primary w-full">
+                Gerar com IA
+              </button>
+
+              <div class="key-actions text-xs text-slate-300">
+                <small>
+                  A chave fica salva com segurança no seu navegador.
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-cyan-300 hover:text-cyan-100 underline decoration-dotted"
+                    >Criar/gerenciar chave</a
+                  >
+                </small>
+                <div class="ia-state">
+                  <div class="ia-indicator" id="ia-indicator" hidden>
+                    <span class="ia-spinner"></span>
+                    <span class="ia-check" hidden>✓</span>
+                    <span id="ia-timer" class="ia-timer"></span>
+                  </div>
+                  <button type="button" id="forget-key" class="text-btn">
+                    Limpar chave salva
+                  </button>
+                </div>
+              </div>
+              <p id="ai-status" class="text-xs text-cyan-200"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="glass-panel space-y-5" id="output">
+          <div class="flex items-center justify-between text-slate-300 text-sm uppercase tracking-[0.3em]">
+            <div>
+              <p class="text-xs text-slate-400">Output oficial</p>
+              <h2 class="text-xl font-semibold text-white">Bloco formatado</h2>
+            </div>
+            <span class="chip-live">Live Preview</span>
+          </div>
+
+          <div class="glass-panel dark space-y-4">
+            <textarea
+              id="formatted-output"
+              spellcheck="false"
+              readonly
+              class="code-field min-h-[340px]"
+>```
+AUT SUP:
+PEDIDO:
+ITENS NEGOCIADOS:
+BONIFICAÇÃO:
+MOTIVO:
+CNPJ:
+DATA ENTREGA:
+```</textarea>
+            <div class="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+              <button id="copy-btn" class="btn-primary">
+                Copiar bloco
+              </button>
+              <span id="copy-feedback">Colou? Confere o CNPJ.</span>
+            </div>
+
+            <div id="issues-wrapper" class="issues-panel" hidden>
+              <div class="issues-header">
+                <h3>Pendências detectadas</h3>
+                <span id="issues-count">0</span>
+              </div>
+              <ul id="issues-list"></ul>
+            </div>
+          </div>
+
+          <div class="grid gap-4 text-sm text-slate-300">
+            <div class="status-card">
+              <span class="text-cyan-300 text-xs uppercase tracking-[0.3em]">Autonomia</span>
+              <p>Parser identifica itens, bonificações, motivo, CNPJ e datas sozinhos.</p>
+            </div>
+            <div class="status-card">
+              <span class="text-cyan-300 text-xs uppercase tracking-[0.3em]">Confiabilidade</span>
+              <p>Mesmo sem IA, o bloco sai pronto. IA é um bônus para validação.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="glass-panel-sub history-panel" id="history">
+        <div class="history-header">
+          <div>
+            <h2>Histórico recente</h2>
+            <p>Últimos blocos copiados ficam guardados só para você.</p>
+          </div>
+          <button id="clear-history" class="text-btn">Limpar histórico</button>
+        </div>
+        <ol id="history-list" class="history-list">
+          <li class="history-empty">Nenhum bloco salvo ainda.</li>
+        </ol>
+      </section>
+
+      <section class="glass-panel-sub grid gap-6 lg:grid-cols-3" id="checklist">
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">Checklist</h3>
+          <p class="text-sm text-slate-300">
+            Data sempre completa (DD/MM/AAAA) — se vier “12/12”, completamos “12/12/2025”.
+          </p>
+        </article>
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">CNPJ</h3>
+          <p class="text-sm text-slate-300">
+            Remove pontos, barras e traços automaticamente. Resultado final só com números.
+          </p>
+        </article>
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">Observações</h3>
+          <p class="text-sm text-slate-300">
+            Endereço alternativo ou alerta importante aparece após a data de entrega.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
