@@ -1,3 +1,23 @@
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgba(208, 140, 63, 0.3);
+  background: rgba(255, 247, 232, 0.85);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.aurora-logo {
+  height: 36px;
+  width: auto;
+}
+
 :root {
   color-scheme: dark;
   --bg: #f7ead4;
