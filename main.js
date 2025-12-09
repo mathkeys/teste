@@ -290,7 +290,7 @@ function finalizeBucket(bucket, rawText) {
     pedido: bucket.pedido.trim(),
     itens: normalizeList(bucket.itens).join(' / '),
     bonificacao: normalizeBonificacao(bucket.bonificacao),
-    motivo: collapse(bucket.motivo),
+    motivo: collapse(bucket.motivo) || 'INCREMENTO DE VOLUME',
     cnpj: bucket.cnpj,
     dataEntrega: bucket.dataEntrega,
     observacoes: collapse(bucket.observacoes),
@@ -545,7 +545,7 @@ async function sendToAI() {
       parts: [
         {
           text:
-            'Você é um assistente que padroniza solicitações de bonificação. Responda apenas com o bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem). IMPORTANTE: ao preencher CNPJ, mantenha somente números (sem ponto, traço ou barra). Finalize com a frase “Pronto! Copia e cola. Manda o próximo! 🚀”. Não acrescente nenhum comentário extra.',
+            'Você é um assistente que padroniza solicitações de bonificação. Responda apenas com o bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem). IMPORTANTE: ao preencher CNPJ, mantenha somente números (sem ponto, traço ou barra). Se o motivo não estiver informado, utilize exatamente “INCREMENTO DE VOLUME”. Finalize com a frase “Pronto! Copia e cola. Manda o próximo! 🚀”. Não acrescente nenhum comentário extra.',
         },
       ],
     },
