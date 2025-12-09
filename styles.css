@@ -22,6 +22,70 @@ body {
   min-height: 100vh;
   background: radial-gradient(circle at top, #fdfcff 0%, #eef2ff 40%, #e0e7ff 100%);
   color: #0f172a;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.background-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 0);
+  background-size: 40px 40px;
+  opacity: 0.3;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0px);
+  opacity: 0.45;
+  animation: float 18s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 60%);
+  top: -80px;
+  left: -60px;
+}
+
+.orb-2 {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.8), transparent 60%);
+  bottom: 10%;
+  right: -120px;
+  animation-duration: 22s;
+}
+
+.orb-3 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.6), transparent 60%);
+  top: 25%;
+  right: 25%;
+  animation-duration: 16s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(30px, -35px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .app-shell {
@@ -31,6 +95,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero {
