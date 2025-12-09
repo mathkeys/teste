@@ -1,5 +1,3 @@
-const FINAL_PHRASE = 'Pronto! Copia e cola. Manda o próximo! 🚀';
-
 const GEMINI_KEY_STORAGE = 'formatadorBonificacoesGeminiKey';
 
 const labelMatchers = [
@@ -385,7 +383,7 @@ function collapse(values) {
 
 function wrapWithCode(lines) {
   const content = Array.isArray(lines) ? lines.join('\n') : lines;
-  return `\`\`\`\n${content.trimEnd()}\n\`\`\`\n\n${FINAL_PHRASE}`;
+  return `\`\`\`\n${content.trimEnd()}\n\`\`\``;
 }
 
 function mergeValues(existing, incoming) {
@@ -545,7 +543,7 @@ async function sendToAI() {
       parts: [
         {
           text:
-            'Você é um assistente que padroniza solicitações de bonificação. Responda apenas com o bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem). IMPORTANTE: ao preencher CNPJ, mantenha somente números (sem ponto, traço ou barra). Se o motivo não estiver informado, utilize exatamente “INCREMENTO DE VOLUME”. Finalize com a frase “Pronto! Copia e cola. Manda o próximo! 🚀”. Não acrescente nenhum comentário extra.',
+            'Você é um assistente que padroniza solicitações de bonificação. Responda somente com um bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem). IMPORTANTE: ao preencher CNPJ, mantenha somente números (sem ponto, traço ou barra). Se o motivo não estiver informado, utilize exatamente “INCREMENTO DE VOLUME”. Não acrescente nenhum comentário extra.',
         },
       ],
     },
