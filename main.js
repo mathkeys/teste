@@ -1,14 +1,43 @@
 const FINAL_PHRASE = 'Pronto! Copia e cola. Manda o próximo! 🚀';
 
 const labelMatchers = [
-  { key: 'autSup', patterns: ['AUT SUP', 'AUTORIZACAO SUP', 'AUTORIZACAO SUPERVISOR'] },
-  { key: 'pedido', patterns: ['PEDIDO', 'PEDIDOS', 'NUMERO PEDIDO'] },
-  { key: 'itens', patterns: ['ITENS NEGOCIADOS', 'ITENS', 'PRODUTOS NEGOCIADOS'] },
-  { key: 'bonificacao', patterns: ['BONIFICACAO', 'BONIFICAÇÃO', 'BONIFICACOES'] },
-  { key: 'motivo', patterns: ['MOTIVO', 'JUSTIFICATIVA', 'RAZAO'] },
-  { key: 'cnpj', patterns: ['CNPJ'] },
-  { key: 'dataEntrega', patterns: ['DATA ENTREGA', 'DATA DE ENTREGA', 'ENTREGA'] },
-  { key: 'observacoes', patterns: ['OBSERVACAO', 'OBSERVACOES', 'OBS'] },
+  {
+    key: 'autSup',
+    patterns: ['AUT SUP', 'AUTORIZACAO SUP', 'AUTORIZACAO SUPERVISOR', 'AUTORIZACAO SUPERVISAO'],
+  },
+  {
+    key: 'pedido',
+    patterns: ['PEDIDO', 'PEDIDOS', 'NUMERO PEDIDO', 'PEDIDO AURORA', 'PEDIDO SAP'],
+  },
+  {
+    key: 'itens',
+    patterns: [
+      'ITENS NEGOCIADOS',
+      'ITENS',
+      'PRODUTOS NEGOCIADOS',
+      'SKU',
+      'ITENS SOLICITADOS',
+      'MIX',
+    ],
+  },
+  {
+    key: 'bonificacao',
+    patterns: [
+      'BONIFICACAO',
+      'BONIFICACOES',
+      'BONIFICACAO SOLICITADA',
+      'BONUS',
+      'BRINDE',
+      'AMOSTRA',
+    ],
+  },
+  { key: 'motivo', patterns: ['MOTIVO', 'JUSTIFICATIVA', 'RAZAO', 'MOTIVACAO'] },
+  { key: 'cnpj', patterns: ['CNPJ', 'CNPJ/CPF', 'DOC CNPJ'] },
+  {
+    key: 'dataEntrega',
+    patterns: ['DATA ENTREGA', 'DATA DE ENTREGA', 'ENTREGA', 'PREVISAO ENTREGA', 'ENTREGA PREVISTA'],
+  },
+  { key: 'observacoes', patterns: ['OBSERVACAO', 'OBSERVACOES', 'OBS', 'COMENTARIOS'] },
 ];
 
 const multiLineKeys = new Set(['itens', 'bonificacao', 'motivo', 'observacoes']);
