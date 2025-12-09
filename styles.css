@@ -473,6 +473,27 @@ body.site-body::after {
   color: var(--ink-soft);
 }
 
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  margin: 0.5rem 0;
+  color: var(--ink);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.3vw, 1.2rem);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--ink-soft);
+}
+
 .night-mode {
   background: linear-gradient(180deg, #0e0502, #1a0b04 65%, #0e0502);
   color: #fdf5e8;
@@ -551,7 +572,8 @@ body.site-body::after {
 .night-mode .status-card span,
 .night-mode .glass-panel h2,
 .night-mode .glass-panel-sub h2,
-.night-mode .header-badge span {
+.night-mode .header-badge span,
+.night-mode .hero-title {
   color: #fff2d6;
 }
 
@@ -560,7 +582,8 @@ body.site-body::after {
 .night-mode .text-btn,
 .night-mode .glass-panel p,
 .night-mode .glass-panel span,
-.night-mode .glass-panel-sub p {
+.night-mode .glass-panel-sub p,
+.night-mode .hero-subtitle {
   color: rgba(255, 235, 215, 0.8);
 }
 
