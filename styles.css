@@ -128,12 +128,35 @@ nav,
   display: inline;
 }
 
+.site-title {
+  font-family: 'Orbitron', 'Play', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 0 0 1.8rem;
+  text-align: center;
+  text-shadow: 0 0 35px rgba(255, 46, 99, 0.55);
+  position: relative;
+  z-index: 2;
+}
+
+.site-title::after {
+  content: '';
+  display: block;
+  width: clamp(140px, 18vw, 280px);
+  height: 2px;
+  margin: 0.7rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--accent-red), var(--accent-cyan), transparent);
+  box-shadow: 0 0 25px rgba(36, 229, 255, 0.45);
+}
+
 .hero-title {
   font-family: 'Play', 'Space Grotesk', sans-serif;
-  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-size: clamp(2.3rem, 4.2vw, 3.4rem);
   margin: 0.8rem 0;
   color: var(--fg);
-  text-shadow: 0 0 35px rgba(255, 46, 99, 0.45);
+  text-shadow: 0 0 25px rgba(255, 46, 99, 0.35);
 }
 
 .hero-subtitle {
@@ -378,6 +401,7 @@ nav,
 
 .night-mode .hero-title,
 .night-mode .hero-subtitle,
+.night-mode .site-title,
 .night-mode .pill,
 .night-mode .header-badge span,
 .night-mode .top-nav a {
