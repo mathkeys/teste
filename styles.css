@@ -20,18 +20,18 @@
 
 :root {
   color-scheme: dark;
-  --bg: #f7ead4;
-  --bg-secondary: linear-gradient(140deg, rgba(255, 234, 192, 0.8), rgba(244, 207, 140, 0.8));
-  --paper: #fff5e2;
-  --paper-deep: #f2d1a5;
-  --ink: #3d1c0f;
-  --ink-soft: #6a3a1d;
-  --accent-red: #c0392b;
-  --accent-orange: #e67e22;
-  --accent-yellow: #f1c40f;
-  --shadow: rgba(84, 39, 10, 0.25);
-  --shadow-strong: rgba(84, 39, 10, 0.4);
-  --noise: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"%3E%3Cg fill-opacity="0.05" fill="%2320160d"%3E%3Ccircle cx="5" cy="5" r="1"/%3E%3Ccircle cx="70" cy="25" r="1"/%3E%3Ccircle cx="20" cy="70" r="1"/%3E%3Ccircle cx="95" cy="95" r="1"/%3E%3Ccircle cx="40" cy="30" r="1"/%3E%3C/g%3E%3C/svg%3E');
+  --bg: #1a0606;
+  --bg-secondary: radial-gradient(circle at top, rgba(255, 213, 92, 0.4), transparent 55%);
+  --paper: #fff2dc;
+  --paper-deep: #f2c58d;
+  --ink: #2b0f06;
+  --ink-soft: #6c2e1a;
+  --accent-red: #ff3c2a;
+  --accent-orange: #ff7b21;
+  --accent-yellow: #ffd646;
+  --shadow: rgba(41, 10, 3, 0.25);
+  --shadow-strong: rgba(41, 10, 3, 0.45);
+  --noise: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"%3E%3Cg fill-opacity="0.05" fill="%232b0f06"%3E%3Ccircle cx="10" cy="20" r="1"/%3E%3Ccircle cx="70" cy="25" r="1"/%3E%3Ccircle cx="20" cy="120" r="1"/%3E%3Ccircle cx="130" cy="80" r="1"/%3E%3Ccircle cx="40" cy="50" r="1"/%3E%3C/g%3E%3C/svg%3E');
 }
 
 *, *::before, *::after {
@@ -45,17 +45,23 @@ body.site-body {
   min-height: 100vh;
   background: var(--bg);
   position: relative;
+  overflow-x: hidden;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
 }
 
 body.site-body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: var(--bg-secondary);
-  mix-blend-mode: multiply;
-  opacity: 0.6;
+  background: radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 121, 34, 0.35), transparent 40%),
+    radial-gradient(circle at calc(var(--pointer-x) + 20%) calc(var(--pointer-y) + 15%), rgba(255, 214, 70, 0.3), transparent 45%),
+    var(--bg-secondary);
+  mix-blend-mode: screen;
+  opacity: 0.85;
   pointer-events: none;
   z-index: -2;
+  animation: sunPulse 20s ease-in-out infinite;
 }
 
 body.site-body::after {
@@ -64,7 +70,7 @@ body.site-body::after {
   inset: 0;
   background-image: var(--noise);
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.45;
   z-index: -1;
   animation: grainShift 12s steps(2) infinite;
 }

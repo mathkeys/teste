@@ -97,6 +97,7 @@ function init() {
   updateIssuesUI([]);
   restoreSavedKey();
   renderHistory(getHistory());
+  setupPointerGlow();
   rawInput.addEventListener('input', () => {
     lastGenerationSource = 'manual';
     formattedOutput.value = formatBlock(rawInput.value);
@@ -648,6 +649,16 @@ function setupThemeToggle() {
     } catch (error) {
       console.warn('Não foi possível salvar preferência de tema.', error);
     }
+  });
+}
+
+function setupPointerGlow() {
+  window.addEventListener('pointermove', (event) => {
+    const { clientX, clientY } = event;
+    const xPercent = `${(clientX / window.innerWidth) * 100}%`;
+    const yPercent = `${(clientY / window.innerHeight) * 100}%`;
+    document.body.style.setProperty('--pointer-x', xPercent);
+    document.body.style.setProperty('--pointer-y', yPercent);
   });
 }
 
