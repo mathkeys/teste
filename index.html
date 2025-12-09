@@ -21,76 +21,131 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: '#7c3aed',
+              brandAccent: '#22d3ee',
+              brandDark: '#1d1b2f',
+            },
+            fontFamily: {
+              grotesk: ['"Space Grotesk"', 'sans-serif'],
+            },
+            boxShadow: {
+              neon: '0 25px 65px rgba(124, 58, 237, 0.35)',
+              mint: '0 15px 55px rgba(34, 211, 238, 0.35)',
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=3" />
     <script src="main.js" defer></script>
   </head>
-  <body>
-    <div class="background-glow" aria-hidden="true">
+  <body class="bg-slate-950 text-slate-100 font-grotesk antialiased overflow-x-hidden">
+    <div class="aurora-bg" aria-hidden="true">
       <span class="orb orb-1"></span>
       <span class="orb orb-2"></span>
       <span class="orb orb-3"></span>
-      <span class="grid-overlay"></span>
+      <span class="scanlines"></span>
     </div>
 
-    <main class="app-shell">
-      <header class="hero">
-        <p class="hero-label">assistente + ia</p>
-        <h1>Formatador de Bonificações</h1>
-        <p class="hero-subtitle">
-          Cole qualquer solicitação de bonificação e deixe que o assistente organize
-          tudo automaticamente. Ajuste instantâneo, com apoio opcional de IA.
+    <main class="relative max-w-6xl mx-auto px-4 py-14 lg:py-20 space-y-12">
+      <header class="space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.3em] text-slate-200">
+          <span class="h-2 w-2 rounded-full bg-emerald-300 animate-pulse"></span>
+          assistente + ia
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-semibold leading-tight text-white">
+          Formatador de Bonificações com vibe futurista
+        </h1>
+        <p class="max-w-3xl text-base lg:text-lg text-slate-300 mx-auto lg:mx-0">
+          Cole qualquer solicitação de bonificação e deixe que o copiloto inteligente normalize tudo sozinho.
+          O bloco final já sai com o padrão obrigatório e você ainda pode pedir uma revisão extra com o Gemini.
         </p>
+
+        <div class="flex flex-wrap justify-center lg:justify-start gap-3 text-xs uppercase tracking-widest text-slate-300">
+          <span class="pill">Parser em tempo real</span>
+          <span class="pill">Limpeza automática de CNPJ</span>
+          <span class="pill">Integração Gemini</span>
+          <span class="pill">Copiar em um clique</span>
+        </div>
       </header>
 
-      <section class="workspace">
-        <div class="panel input-panel">
-          <div class="panel-header">
-            <h2>Entrada livre</h2>
-            <p>Cole o texto bruto do e-mail, formulário ou áudio transcrito.</p>
+      <section class="grid gap-8 lg:grid-cols-2">
+        <div class="glass-panel space-y-6">
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-semibold text-white">Entrada livre</h2>
+              <span class="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE</span>
+            </div>
+            <p class="text-slate-400 text-sm">
+              Cole o texto bruto do e-mail, formulário ou áudio transcrito. O assistente identifica tudo sozinho.
+            </p>
           </div>
 
           <textarea
             id="raw-input"
-            class="raw-input"
-            rows="14"
+            rows="12"
             placeholder="Cole aqui a solicitação completa..."
+            class="neon-field min-h-[280px]"
           ></textarea>
 
-          <div class="actions-row">
-            <button type="button" id="clear-input" class="ghost-btn">
+          <div class="flex flex-wrap gap-3">
+            <button type="button" id="clear-input" class="btn-secondary">
               Limpar texto
             </button>
-            <button type="button" id="demo-input" class="ghost-btn">
+            <button type="button" id="demo-input" class="btn-secondary">
               Usar exemplo rápido
             </button>
           </div>
 
-          <div class="ai-card">
-            <div class="panel-header compact">
-              <h3>Conexão com IA</h3>
-              <p>Envie para o Gemini e receba uma validação inteligente.</p>
+          <div class="glass-panel-sub space-y-4">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <h3 class="text-base font-semibold text-white">Conexão com IA</h3>
+                <p class="text-xs text-slate-400">
+                  Peça para o Gemini revisar o bloco antes de enviar para o time.
+                </p>
+              </div>
+              <span class="chip-soft">Gemini</span>
             </div>
-            <form id="ai-form">
-              <label for="ai-key">Chave do Gemini (Google AI Studio)</label>
-              <input
-                id="ai-key"
-                type="password"
-                placeholder="AIza..."
-                autocomplete="off"
-              />
-              <label for="ai-model">Modelo</label>
-              <select id="ai-model">
-                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
-                <option value="gemini-1.5-pro">gemini-1.5-pro</option>
-              </select>
-              <button type="submit" class="primary-btn">Gerar com IA</button>
-              <div class="key-actions">
+
+            <form id="ai-form" class="space-y-4">
+              <label class="flex flex-col gap-2 text-sm font-medium text-slate-200">
+                Chave do Gemini (Google AI Studio)
+                <input
+                  id="ai-key"
+                  type="password"
+                  placeholder="AIza..."
+                  autocomplete="off"
+                  class="neon-field"
+                />
+              </label>
+
+              <label class="flex flex-col gap-2 text-sm font-medium text-slate-200">
+                Modelo
+                <select id="ai-model" class="neon-field">
+                  <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                  <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                </select>
+              </label>
+
+              <button type="submit" class="btn-primary w-full">
+                Gerar com IA
+              </button>
+
+              <div class="key-actions text-xs text-slate-300">
                 <small>
                   A chave fica salva com segurança no seu navegador.
                   <a
                     href="https://aistudio.google.com/app/apikey"
                     target="_blank"
                     rel="noreferrer"
+                    class="text-cyan-300 hover:text-cyan-100 underline decoration-dotted"
                     >Criar/gerenciar chave</a
                   >
                 </small>
@@ -98,26 +153,26 @@
                   Limpar chave salva
                 </button>
               </div>
-              <p id="ai-status" class="muted"></p>
+              <p id="ai-status" class="text-xs text-cyan-200"></p>
             </form>
           </div>
         </div>
 
-        <div class="panel output-panel">
-          <div class="panel-header">
+        <div class="glass-panel space-y-5">
+          <div class="flex items-center justify-between text-slate-300 text-sm uppercase tracking-[0.3em]">
             <div>
-              <h2>Bloco formatado</h2>
-              <p>Atualiza automaticamente a cada caractere.</p>
+              <p class="text-xs text-slate-400">Output oficial</p>
+              <h2 class="text-xl font-semibold text-white">Bloco formatado</h2>
             </div>
-            <span class="chip live-chip">Live preview</span>
+            <span class="chip-live">Live Preview</span>
           </div>
 
-          <div class="code-wrapper">
+          <div class="glass-panel dark space-y-4">
             <textarea
               id="formatted-output"
-              class="code-block"
               spellcheck="false"
               readonly
+              class="code-field min-h-[340px]"
 >```
 AUT SUP:
 PEDIDO:
@@ -129,29 +184,50 @@ DATA ENTREGA:
 ```
 
 Pronto! Copia e cola. Manda o próximo! 🚀</textarea>
-            <div class="copy-row">
-              <button id="copy-btn" class="primary-btn">Copiar bloco</button>
-              <span id="copy-feedback" class="muted">Colou? Confere o CNPJ.</span>
+            <div class="flex flex-wrap items-center gap-3 text-sm text-slate-400">
+              <button id="copy-btn" class="btn-primary">
+                Copiar bloco
+              </button>
+              <span id="copy-feedback">Colou? Confere o CNPJ.</span>
             </div>
           </div>
 
-          <p class="final-phrase">Pronto! Copia e cola. Manda o próximo! 🚀</p>
+          <div class="grid gap-4 text-sm text-slate-300">
+            <div class="status-card">
+              <span class="text-cyan-300 text-xs uppercase tracking-[0.3em]">Autonomia</span>
+              <p>Parser identifica itens, bonificações, motivo, CNPJ e datas sozinhos.</p>
+            </div>
+            <div class="status-card">
+              <span class="text-cyan-300 text-xs uppercase tracking-[0.3em]">Confiabilidade</span>
+              <p>Mesmo sem IA, o bloco sai pronto. IA é um bônus para validação.</p>
+            </div>
+          </div>
+
+          <p class="text-center text-base font-semibold text-white">
+            Pronto! Copia e cola. Manda o próximo! 🚀
+          </p>
         </div>
       </section>
 
-      <section class="panel rules-panel">
-        <div class="panel-header">
-          <h2>Checklist inteligente</h2>
-          <p>Boas práticas aplicadas pelo parser automático e pela IA.</p>
-        </div>
-        <ul class="rules-list">
-          <li>Data sempre completa (DD/MM/AAAA). Se vier 12/12 → vira 12/12/2025.</li>
-          <li>CNPJ é higienizado e fica somente com números.</li>
-          <li>Bonificação troca pc/pct/pacote por <strong>un</strong> e padroniza caixas para <strong>cx</strong>.</li>
-          <li>Quando faltar kg individual, repita o total para cada item.</li>
-          <li>Observações especiais vão após a data de entrega.</li>
-          <li>IA usa o mesmo padrão e nunca adiciona textos extras.</li>
-        </ul>
+      <section class="glass-panel-sub grid gap-6 lg:grid-cols-3">
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">Checklist</h3>
+          <p class="text-sm text-slate-300">
+            Data sempre completa (DD/MM/AAAA) — se vier “12/12”, completamos “12/12/2025”.
+          </p>
+        </article>
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">CNPJ</h3>
+          <p class="text-sm text-slate-300">
+            Remove pontos, barras e traços automaticamente. Resultado final só com números.
+          </p>
+        </article>
+        <article>
+          <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">Observações</h3>
+          <p class="text-sm text-slate-300">
+            Endereço alternativo ou alerta importante aparece após a data de entrega.
+          </p>
+        </article>
       </section>
     </main>
   </body>
