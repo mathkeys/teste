@@ -55,6 +55,7 @@ const aiKeyInput = document.getElementById('ai-key');
 const aiModelSelect = document.getElementById('ai-model');
 const aiStatus = document.getElementById('ai-status');
 const forgetKeyButton = document.getElementById('forget-key');
+const quickAiButton = document.getElementById('quick-ai');
 
 const demoText = `AUT SUP: 874563
 Pedido Aurora: AU-998877 / AU-998878
@@ -124,6 +125,10 @@ function init() {
     if (aiStatus) {
       aiStatus.textContent = 'Chave removida deste navegador.';
     }
+  });
+
+  quickAiButton?.addEventListener('click', async () => {
+    await sendToAI();
   });
 }
 

@@ -54,6 +54,13 @@
     </div>
 
     <main class="relative max-w-6xl mx-auto px-4 py-14 lg:py-20 space-y-12">
+      <nav class="top-nav">
+        <a href="#entrada">Entrada</a>
+        <a href="#output">Bloco pronto</a>
+        <a href="#gemini-card">IA Gemini</a>
+        <a href="#checklist">Checklist</a>
+      </nav>
+
       <header class="space-y-6 text-center lg:text-left">
         <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.3em] text-slate-200">
           <span class="h-2 w-2 rounded-full bg-emerald-300 animate-pulse"></span>
@@ -75,12 +82,17 @@
         </div>
       </header>
 
-      <section class="grid gap-8 lg:grid-cols-2">
+      <section class="grid gap-8 lg:grid-cols-2" id="entrada">
         <div class="glass-panel space-y-6">
           <div class="space-y-1">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-4 flex-wrap">
               <h2 class="text-xl font-semibold text-white">Entrada livre</h2>
-              <span class="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE</span>
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE</span>
+                <button type="button" id="quick-ai" class="btn-ghost">
+                  IA
+                </button>
+              </div>
             </div>
             <p class="text-slate-400 text-sm">
               Cole o texto bruto do e-mail, formulário ou áudio transcrito. O assistente identifica tudo sozinho.
@@ -103,7 +115,7 @@
             </button>
           </div>
 
-          <div class="glass-panel-sub space-y-4">
+          <div class="glass-panel-sub space-y-4" id="gemini-card">
             <div class="flex items-center justify-between gap-4">
               <div>
                 <h3 class="text-base font-semibold text-white">Conexão com IA</h3>
@@ -162,7 +174,7 @@
           </div>
         </div>
 
-        <div class="glass-panel space-y-5">
+        <div class="glass-panel space-y-5" id="output">
           <div class="flex items-center justify-between text-slate-300 text-sm uppercase tracking-[0.3em]">
             <div>
               <p class="text-xs text-slate-400">Output oficial</p>
@@ -213,7 +225,7 @@ Pronto! Copia e cola. Manda o próximo! 🚀</textarea>
         </div>
       </section>
 
-      <section class="glass-panel-sub grid gap-6 lg:grid-cols-3">
+      <section class="glass-panel-sub grid gap-6 lg:grid-cols-3" id="checklist">
         <article>
           <h3 class="text-sm font-semibold text-cyan-200 uppercase tracking-[0.4em] mb-3">Checklist</h3>
           <p class="text-sm text-slate-300">
