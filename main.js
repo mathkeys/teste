@@ -56,6 +56,8 @@ const aiModelSelect = document.getElementById('ai-model');
 const aiStatus = document.getElementById('ai-status');
 const forgetKeyButton = document.getElementById('forget-key');
 const quickAiButton = document.getElementById('quick-ai');
+const themeToggle = document.getElementById('theme-toggle');
+const THEME_STORAGE = 'formatadorBonificacoesTema';
 
 const demoText = `AUT SUP: 874563
 Pedido Aurora: AU-998877 / AU-998878
@@ -130,6 +132,8 @@ function init() {
   quickAiButton?.addEventListener('click', async () => {
     await sendToAI();
   });
+
+  setupThemeToggle();
 }
 
 function formatBlock(rawText = '') {
@@ -473,6 +477,24 @@ function enforceCnpjDigits(blockText = '') {
     if (sanitized) return `${label}${sanitized}`;
     const digits = (value.match(/\d/g) || []).join('');
     return `${label}${digits || value.trim()}`;
+  });
+}
+
+function setupThemeToggle() {
+  if (!themeToggle) return;
+  const storedTheme = localStorage.getItem(THEME_STORAGE);
+  if (storedTheme === 'dark') {
+    document.body.classList.add('night-mode');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('night-mode');
+    const isDark = document.body.classList.contains('night-mode');
+    try {
+      localStorage.setItem(THEME_STORAGE, isDark ? 'dark' : 'light');
+    } catch (error) {
+      console.warn('Não foi possível salvar preferência de tema.', error);
+    }
   });
 }
 
