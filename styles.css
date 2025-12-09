@@ -34,26 +34,28 @@ body.site-body::before,
 body.site-body::after {
   content: '';
   position: fixed;
-  width: 65vw;
-  height: 65vw;
+  width: 60vw;
+  height: 60vw;
   pointer-events: none;
   z-index: -2;
-  filter: blur(50px);
-  opacity: 0.6;
+  filter: blur(55px);
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  will-change: transform;
 }
 
 body.site-body::before {
-  background-image: radial-gradient(circle at 15% 20%, rgba(255, 47, 98, 0.55), transparent 55%),
-    radial-gradient(circle at 80% 70%, rgba(59, 229, 255, 0.4), transparent 55%);
-  mix-blend-mode: screen;
-  animation: neonBounce 24s linear infinite;
+  top: -15vw;
+  left: -18vw;
+  background: radial-gradient(circle, rgba(255, 47, 98, 0.8) 0%, rgba(255, 47, 98, 0.05) 65%);
+  animation: neonBounce 26s linear infinite alternate;
 }
 
 body.site-body::after {
-  z-index: -1;
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"%3E%3Cg fill-opacity="0.06" fill="%23ffffff"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3Ccircle cx="100" cy="60" r="1"/%3E%3Ccircle cx="60" cy="120" r="1"/%3E%3Ccircle cx="130" cy="90" r="1"/%3E%3C/g%3E%3C/svg%3E');
-  opacity: 0.35;
-  animation: grainShift 16s steps(2) infinite;
+  bottom: -18vw;
+  right: -20vw;
+  background: radial-gradient(circle, rgba(36, 229, 255, 0.7) 0%, rgba(36, 229, 255, 0.08) 60%);
+  animation: neonBounceAlt 30s linear infinite alternate;
 }
 
 header,
@@ -606,21 +608,6 @@ nav,
   color: rgba(255, 255, 255, 0.7);
 }
 
-@keyframes glowPulse {
-  0% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-}
-
 @keyframes grainShift {
   0% {
     transform: translate(0, 0);
@@ -663,55 +650,19 @@ nav,
 }
 
 @keyframes neonBounce {
-  0% {
-    transform: translate(-10vw, -6vh);
-  }
-  25% {
-    transform: translate(8vw, 12vh);
-  }
-  50% {
-    transform: translate(18vw, -4vh);
-  }
-  75% {
-    transform: translate(-6vw, 18vh);
-  }
-  100% {
-    transform: translate(-10vw, -6vh);
-  }
+  0% { transform: translate(-15vw, -8vh); }
+  20% { transform: translate(15vw, 12vh); }
+  40% { transform: translate(22vw, -4vh); }
+  60% { transform: translate(-10vw, 18vh); }
+  80% { transform: translate(12vw, 6vh); }
+  100% { transform: translate(-15vw, -8vh); }
 }
 
-@keyframes dvdGlow {
-  0% {
-    transform: translate(-8vw, -6vh);
-  }
-  25% {
-    transform: translate(15vw, 12vh);
-  }
-  50% {
-    transform: translate(22vw, -5vh);
-  }
-  75% {
-    transform: translate(-4vw, 22vh);
-  }
-  100% {
-    transform: translate(-8vw, -6vh);
-  }
-}
-
-@keyframes dvdGlowAlt {
-  0% {
-    transform: translate(12vw, 8vh);
-  }
-  30% {
-    transform: translate(-12vw, 16vh);
-  }
-  55% {
-    transform: translate(-18vw, -8vh);
-  }
-  80% {
-    transform: translate(14vw, -14vh);
-  }
-  100% {
-    transform: translate(12vw, 8vh);
-  }
+@keyframes neonBounceAlt {
+  0% { transform: translate(10vw, 6vh); }
+  20% { transform: translate(-12vw, 15vh); }
+  40% { transform: translate(-20vw, -6vh); }
+  60% { transform: translate(14vw, -12vh); }
+  80% { transform: translate(-8vw, 18vh); }
+  100% { transform: translate(10vw, 6vh); }
 }
