@@ -57,7 +57,15 @@ const aiStatus = document.getElementById('ai-status');
 const forgetKeyButton = document.getElementById('forget-key');
 const quickAiButton = document.getElementById('quick-ai');
 const themeToggle = document.getElementById('theme-toggle');
+const issuesWrapper = document.getElementById('issues-wrapper');
+const issuesList = document.getElementById('issues-list');
+const issuesCount = document.getElementById('issues-count');
+const historyList = document.getElementById('history-list');
+const clearHistoryButton = document.getElementById('clear-history');
+
 const THEME_STORAGE = 'formatadorBonificacoesTema';
+const HISTORY_STORAGE = 'formatadorBonificacoesHistorico';
+let lastGenerationSource = 'manual';
 
 const demoText = `AUT SUP: 874563
 Pedido Aurora: AU-998877 / AU-998878
@@ -86,8 +94,11 @@ const DEFAULT_BLOCK = wrapWithCode([
 function init() {
   if (!rawInput || !formattedOutput) return;
   formattedOutput.value = DEFAULT_BLOCK;
+  updateIssuesUI([]);
   restoreSavedKey();
+  renderHistory(getHistory());
   rawInput.addEventListener('input', () => {
+    lastGenerationSource = 'manual';
     formattedOutput.value = formatBlock(rawInput.value);
   });
 
@@ -95,17 +106,21 @@ function init() {
     rawInput.value = '';
     formattedOutput.value = DEFAULT_BLOCK;
     rawInput.focus();
+    updateIssuesUI([]);
   });
 
   demoButton?.addEventListener('click', () => {
     rawInput.value = demoText;
+    lastGenerationSource = 'manual';
     formattedOutput.value = formatBlock(demoText);
   });
 
   copyButton?.addEventListener('click', async () => {
     if (!formattedOutput.value.trim()) return;
     try {
-      await navigator.clipboard.writeText(formattedOutput.value.trim());
+      const block = formattedOutput.value.trim();
+      await navigator.clipboard.writeText(block);
+      addHistory(block, lastGenerationSource);
       setTransientMessage('Bloco copiado!', 2000);
     } catch (error) {
       setTransientMessage('Não foi possível copiar automaticamente.', 3000);
@@ -133,11 +148,30 @@ function init() {
     await sendToAI();
   });
 
+  clearHistoryButton?.addEventListener('click', () => {
+    clearHistory();
+  });
+
+  historyList?.addEventListener('click', async (event) => {
+    const target = event.target.closest('button[data-history-index]');
+    if (!target) return;
+    const history = getHistory();
+    const entry = history[Number(target.dataset.historyIndex)];
+    if (!entry) return;
+    try {
+      await navigator.clipboard.writeText(entry.block);
+      setTransientMessage('Histórico copiado!', 2000);
+    } catch (error) {
+      setTransientMessage('Não foi possível copiar o histórico.', 3000);
+    }
+  });
+
   setupThemeToggle();
 }
 
 function formatBlock(rawText = '') {
   const parsed = parseRaw(rawText);
+  updateIssuesUI(detectIssues(parsed, rawText));
   const lines = [
     `AUT SUP: ${parsed.autSup}`,
     `PEDIDO: ${parsed.pedido}`,
@@ -368,6 +402,123 @@ function setTransientMessage(message, duration = 2000) {
   }, duration);
 }
 
+function detectIssues(parsed, rawText = '') {
+  const issues = [];
+  if (!parsed.cnpj || parsed.cnpj.length !== 14) {
+    issues.push('CNPJ ausente ou com menos de 14 dígitos.');
+  }
+
+  const cnpjsEncontrados = Array.from(new Set((rawText.match(/\b\d{14}\b/g) || [])));
+  if (cnpjsEncontrados.length > 1) {
+    issues.push(`Foram encontrados ${cnpjsEncontrados.length} CNPJs diferentes no texto.`);
+  }
+
+  if (!parsed.dataEntrega) {
+    issues.push('Data de entrega não identificada.');
+  }
+
+  if (!parsed.itens) {
+    issues.push('Itens negociados não foram informados.');
+  }
+
+  if (!parsed.bonificacao) {
+    issues.push('Quantidade da bonificação não apareceu.');
+  }
+
+  if (!parsed.motivo) {
+    issues.push('Motivo da bonificação está vazio.');
+  }
+
+  const observacaoPistas = /(end(e|é)reço|contato|evento|retirada|entrega em)/i;
+  if (!parsed.observacoes && observacaoPistas.test(rawText)) {
+    issues.push('Há menção a endereço/observação no texto, mas não foi adicionada após a data.');
+  }
+
+  return issues;
+}
+
+function updateIssuesUI(issues = []) {
+  if (!issuesWrapper || !issuesList || !issuesCount) return;
+  if (!issues.length) {
+    issuesWrapper.hidden = true;
+    issuesList.innerHTML = '';
+    issuesCount.textContent = '0';
+    return;
+  }
+  issuesWrapper.hidden = false;
+  issuesCount.textContent = issues.length === 1 ? '1 alerta' : `${issues.length} alertas`;
+  issuesList.innerHTML = issues.map((issue) => `<li>${issue}</li>`).join('');
+}
+
+function getHistory() {
+  try {
+    const stored = localStorage.getItem(HISTORY_STORAGE);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function renderHistory(history = getHistory()) {
+  if (!historyList) return;
+  if (!history.length) {
+    historyList.innerHTML = '<li class="history-empty">Nenhum bloco salvo ainda.</li>';
+    return;
+  }
+  historyList.innerHTML = history
+    .map(
+      (entry, index) => `<li>
+          <div class="history-entry-meta">
+            <span>${entry.source === 'ia' ? 'IA Gemini' : 'Entrada manual'}</span>
+            <span>${formatTimestamp(entry.timestamp)}</span>
+          </div>
+          <pre class="history-entry-preview">${entry.block.split('\n').slice(0, 4).join('\n')}</pre>
+          <div class="history-entry-actions">
+            <button data-history-index="${index}">Copiar</button>
+          </div>
+        </li>`,
+    )
+    .join('');
+}
+
+function addHistory(blockText, source = 'manual') {
+  if (!blockText) return;
+  const entry = {
+    block: blockText,
+    source,
+    timestamp: Date.now(),
+  };
+  const history = [entry, ...getHistory()].slice(0, 5);
+  try {
+    localStorage.setItem(HISTORY_STORAGE, JSON.stringify(history));
+  } catch (error) {
+    console.warn('Não foi possível salvar o histórico.', error);
+  }
+  renderHistory(history);
+}
+
+function clearHistory() {
+  try {
+    localStorage.removeItem(HISTORY_STORAGE);
+  } catch (error) {
+    console.warn('Não foi possível limpar o histórico.', error);
+  }
+  renderHistory([]);
+}
+
+function formatTimestamp(timestamp) {
+  try {
+    return new Intl.DateTimeFormat('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(timestamp));
+  } catch {
+    return '';
+  }
+}
+
 async function sendToAI() {
   if (!aiKeyInput || !aiModelSelect || !aiStatus) return;
   const apiKey = aiKeyInput.value.trim();
@@ -429,6 +580,8 @@ async function sendToAI() {
       .trim();
     if (formatted) {
       formattedOutput.value = enforceCnpjDigits(formatted);
+      lastGenerationSource = 'ia';
+      updateIssuesUI(detectIssues(parseRaw(rawInput.value), rawInput.value));
       aiStatus.textContent = 'Resposta gerada pela IA ✔️';
     } else {
       aiStatus.textContent = 'IA respondeu sem conteúdo utilizável.';

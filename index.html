@@ -59,6 +59,7 @@
         <a href="#output">Bloco pronto</a>
         <a href="#gemini-card">IA Gemini</a>
         <a href="#checklist">Checklist</a>
+        <a href="#history">Histórico</a>
         <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Alternar modo noturno">
           <span class="toggle-sun">☀️</span>
           <span class="toggle-moon">🌙</span>
@@ -210,6 +211,14 @@ Pronto! Copia e cola. Manda o próximo! 🚀</textarea>
               </button>
               <span id="copy-feedback">Colou? Confere o CNPJ.</span>
             </div>
+
+            <div id="issues-wrapper" class="issues-panel" hidden>
+              <div class="issues-header">
+                <h3>Pendências detectadas</h3>
+                <span id="issues-count">0</span>
+              </div>
+              <ul id="issues-list"></ul>
+            </div>
           </div>
 
           <div class="grid gap-4 text-sm text-slate-300">
@@ -227,6 +236,19 @@ Pronto! Copia e cola. Manda o próximo! 🚀</textarea>
             Pronto! Copia e cola. Manda o próximo! 🚀
           </p>
         </div>
+      </section>
+
+      <section class="glass-panel-sub history-panel" id="history">
+        <div class="history-header">
+          <div>
+            <h2>Histórico recente</h2>
+            <p>Últimos blocos copiados ficam guardados só para você.</p>
+          </div>
+          <button id="clear-history" class="text-btn">Limpar histórico</button>
+        </div>
+        <ol id="history-list" class="history-list">
+          <li class="history-empty">Nenhum bloco salvo ainda.</li>
+        </ol>
       </section>
 
       <section class="glass-panel-sub grid gap-6 lg:grid-cols-3" id="checklist">

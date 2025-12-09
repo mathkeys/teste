@@ -321,6 +321,125 @@ body.site-body::after {
   padding-left: 1.1rem;
 }
 
+.issues-panel {
+  margin-top: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  background: rgba(255, 241, 226, 0.9);
+  padding: 1rem 1.25rem;
+}
+
+.issues-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+}
+
+.issues-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--ink-soft);
+}
+
+.history-panel {
+  margin-top: 2rem;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  color: var(--ink);
+}
+
+.history-header p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.history-list li {
+  border-radius: 16px;
+  border: 1px solid rgba(205, 141, 63, 0.25);
+  padding: 1rem 1.2rem;
+  background: rgba(255, 247, 232, 0.9);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.history-entry-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.history-entry-preview {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+  white-space: pre-line;
+  max-height: 4.2rem;
+  overflow: hidden;
+}
+
+.history-entry-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.history-entry-actions button {
+  border: 1px solid rgba(201, 78, 46, 0.35);
+  border-radius: 999px;
+  background: rgba(201, 78, 46, 0.08);
+  color: var(--accent-red);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-entry-actions button:hover {
+  border-color: var(--accent-red);
+  background: rgba(201, 78, 46, 0.15);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--ink-soft);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(205, 141, 63, 0.35);
+}
+
 .hero h1,
 .panel-header h2,
 .panel-header h3,
@@ -415,6 +534,34 @@ body.site-body::after {
 .night-mode .panel-header p,
 .night-mode .text-btn {
   color: rgba(255, 235, 215, 0.8);
+}
+
+.night-mode .issues-panel,
+.night-mode .history-list li {
+  background: rgba(24, 12, 4, 0.92);
+  border-color: rgba(255, 204, 145, 0.35);
+  color: #fff5e5;
+}
+
+.night-mode .issues-list,
+.night-mode .history-entry-meta {
+  color: rgba(255, 235, 215, 0.85);
+}
+
+.night-mode .history-entry-actions button {
+  border-color: rgba(255, 176, 94, 0.4);
+  color: #ffdda8;
+  background: rgba(255, 176, 94, 0.08);
+}
+
+.night-mode .history-entry-actions button:hover {
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+}
+
+.night-mode .history-empty {
+  border-color: rgba(255, 204, 145, 0.35);
+  color: rgba(255, 235, 215, 0.75);
 }
 
 @keyframes grainShift {
