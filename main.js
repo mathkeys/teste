@@ -349,7 +349,7 @@ async function sendToAI() {
   if (!aiKeyInput || !aiModelSelect || !aiStatus) return;
   const apiKey = aiKeyInput.value.trim();
   if (!apiKey) {
-    aiStatus.textContent = 'Informe sua chave da OpenAI para usar a IA.';
+    aiStatus.textContent = 'Informe sua chave do Gemini para usar a IA.';
     return;
   }
 
@@ -361,25 +361,34 @@ async function sendToAI() {
 
   aiStatus.textContent = 'Enviando para a IA...';
 
+  const model = aiModelSelect.value || 'gemini-1.5-flash';
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
   const body = {
-    model: aiModelSelect.value,
-    temperature: 0.1,
-    messages: [
+    systemInstruction: {
+      parts: [
+        {
+          text:
+            'Você é um assistente que padroniza solicitações de bonificação. Responda apenas com o bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem) e finalize com a frase “Pronto! Copia e cola. Manda o próximo! 🚀”. Não acrescente nenhum comentário extra.',
+        },
+      ],
+    },
+    contents: [
       {
-        role: 'system',
-        content:
-          'Você é um assistente que padroniza solicitações de bonificação. Responda apenas com o bloco em markdown (``` ... ```) contendo as linhas AUT SUP, PEDIDO, ITENS NEGOCIADOS, BONIFICAÇÃO, MOTIVO, CNPJ e DATA ENTREGA (nessa ordem) e finalize com a frase “Pronto! Copia e cola. Manda o próximo! 🚀”. Não acrescente nenhum comentário extra.',
+        role: 'user',
+        parts: [{ text: content }],
       },
-      { role: 'user', content },
     ],
+    generationConfig: {
+      temperature: 0.1,
+    },
   };
 
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify(body),
     });
@@ -390,7 +399,10 @@ async function sendToAI() {
       throw new Error(data?.error?.message || 'Falha ao chamar a IA.');
     }
 
-    const formatted = data?.choices?.[0]?.message?.content?.trim();
+    const formatted = data?.candidates?.[0]?.content?.parts
+      ?.map((part) => part.text || '')
+      .join('\n')
+      .trim();
     if (formatted) {
       formattedOutput.value = formatted;
       aiStatus.textContent = 'Resposta gerada pela IA ✔️';
