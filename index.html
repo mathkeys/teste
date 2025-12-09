@@ -98,11 +98,18 @@
           <div class="space-y-1">
             <div class="flex items-center justify-between gap-4 flex-wrap">
               <h2 class="text-xl font-semibold text-white">Entrada livre</h2>
-              <div class="flex items-center gap-3">
+              <div class="quick-ia-cluster">
                 <span class="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE</span>
-                <button type="button" id="quick-ai" class="btn-ghost">
-                  IA
-                </button>
+                <div class="quick-ia">
+                  <button type="button" id="quick-ai" class="btn-ghost">
+                    IA
+                  </button>
+                  <div class="ia-indicator small" id="ia-indicator-inline" hidden>
+                    <span class="ia-spinner"></span>
+                    <span class="ia-check" hidden>✓</span>
+                    <span class="ia-timer" id="ia-timer-inline"></span>
+                  </div>
+                </div>
               </div>
             </div>
             <p class="text-slate-400 text-sm">

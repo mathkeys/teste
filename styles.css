@@ -1,3 +1,20 @@
+.quick-ia-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.quick-ia {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ia-indicator.small {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.65rem;
+}
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Play:wght@400;600&family=Orbitron:wght@500&display=swap');
 
 :root {
