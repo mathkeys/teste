@@ -84,15 +84,20 @@
                 <option value="gemini-1.5-pro">gemini-1.5-pro</option>
               </select>
               <button type="submit" class="primary-btn">Gerar com IA</button>
-              <small>
-                A chave fica apenas no seu navegador.
-                <a
-                  href="https://aistudio.google.com/app/apikey"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Criar/gerenciar chave</a
-                >
-              </small>
+              <div class="key-actions">
+                <small>
+                  A chave fica salva com segurança no seu navegador.
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Criar/gerenciar chave</a
+                  >
+                </small>
+                <button type="button" id="forget-key" class="text-btn">
+                  Limpar chave salva
+                </button>
+              </div>
               <p id="ai-status" class="muted"></p>
             </form>
           </div>
@@ -113,7 +118,17 @@
               class="code-block"
               spellcheck="false"
               readonly
-            ></textarea>
+>```
+AUT SUP:
+PEDIDO:
+ITENS NEGOCIADOS:
+BONIFICAÇÃO:
+MOTIVO:
+CNPJ:
+DATA ENTREGA:
+```
+
+Pronto! Copia e cola. Manda o próximo! 🚀</textarea>
             <div class="copy-row">
               <button id="copy-btn" class="primary-btn">Copiar bloco</button>
               <span id="copy-feedback" class="muted">Colou? Confere o CNPJ.</span>

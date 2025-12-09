@@ -1,5 +1,7 @@
 const FINAL_PHRASE = 'Pronto! Copia e cola. Manda o próximo! 🚀';
 
+const GEMINI_KEY_STORAGE = 'formatadorBonificacoesGeminiKey';
+
 const labelMatchers = [
   {
     key: 'autSup',
@@ -52,6 +54,7 @@ const aiForm = document.getElementById('ai-form');
 const aiKeyInput = document.getElementById('ai-key');
 const aiModelSelect = document.getElementById('ai-model');
 const aiStatus = document.getElementById('ai-status');
+const forgetKeyButton = document.getElementById('forget-key');
 
 const demoText = `AUT SUP: 874563
 Pedido Aurora: AU-998877 / AU-998878
@@ -80,6 +83,7 @@ const DEFAULT_BLOCK = wrapWithCode([
 function init() {
   if (!rawInput || !formattedOutput) return;
   formattedOutput.value = DEFAULT_BLOCK;
+  restoreSavedKey();
   rawInput.addEventListener('input', () => {
     formattedOutput.value = formatBlock(rawInput.value);
   });
@@ -111,6 +115,16 @@ function init() {
       await sendToAI();
     });
   }
+
+  forgetKeyButton?.addEventListener('click', () => {
+    clearSavedKey();
+    if (aiKeyInput) {
+      aiKeyInput.value = '';
+    }
+    if (aiStatus) {
+      aiStatus.textContent = 'Chave removida deste navegador.';
+    }
+  });
 }
 
 function formatBlock(rawText = '') {
@@ -360,6 +374,7 @@ async function sendToAI() {
   }
 
   aiStatus.textContent = 'Enviando para a IA...';
+  persistKey(apiKey);
 
   const model = aiModelSelect.value || 'gemini-1.5-flash';
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -411,6 +426,38 @@ async function sendToAI() {
     }
   } catch (error) {
     aiStatus.textContent = `Erro: ${error.message}`;
+  }
+}
+
+function persistKey(value) {
+  if (!value) return;
+  try {
+    localStorage.setItem(GEMINI_KEY_STORAGE, value);
+  } catch (error) {
+    console.warn('Não foi possível salvar a chave localmente.', error);
+  }
+}
+
+function restoreSavedKey() {
+  if (!aiKeyInput) return;
+  try {
+    const saved = localStorage.getItem(GEMINI_KEY_STORAGE);
+    if (saved) {
+      aiKeyInput.value = saved;
+      if (aiStatus) {
+        aiStatus.textContent = 'Chave carregada do navegador ✔️';
+      }
+    }
+  } catch (error) {
+    console.warn('Não foi possível ler a chave salva.', error);
+  }
+}
+
+function clearSavedKey() {
+  try {
+    localStorage.removeItem(GEMINI_KEY_STORAGE);
+  } catch (error) {
+    console.warn('Não foi possível remover a chave salva.', error);
   }
 }
 

@@ -261,6 +261,29 @@ button {
   font-weight: 600;
 }
 
+.key-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.text-btn {
+  background: transparent;
+  color: var(--brand-dark);
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.text-btn:hover {
+  transform: none;
+  color: #312e81;
+}
+
 .output-panel .code-wrapper {
   display: flex;
   flex-direction: column;
