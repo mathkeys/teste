@@ -550,8 +550,9 @@ body.site-body::after {
 .night-mode .panel-header h3,
 .night-mode .status-card span,
 .night-mode .glass-panel h2,
-.night-mode .glass-panel-sub h2 {
-  color: #fff9ef;
+.night-mode .glass-panel-sub h2,
+.night-mode .header-badge span {
+  color: #fff2d6;
 }
 
 .night-mode .hero-subtitle,
@@ -561,6 +562,19 @@ body.site-body::after {
 .night-mode .glass-panel span,
 .night-mode .glass-panel-sub p {
   color: rgba(255, 235, 215, 0.8);
+}
+
+.night-mode .header-badge {
+  background: rgba(32, 17, 6, 0.85);
+  border-color: rgba(120, 66, 24, 0.5);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+}
+
+.night-mode .pill {
+  background: rgba(32, 17, 6, 0.85);
+  border-color: rgba(120, 66, 24, 0.6);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  color: #ffe9cf;
 }
 
 .night-mode .issues-panel,
