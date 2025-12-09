@@ -1,0 +1,203 @@
+:root {
+  font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  color: #0f172a;
+  background-color: #f5f6fb;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #fdfcff 0%, #f3f5ff 45%, #eef2ff 100%);
+  color: #0f172a;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.hero {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-label {
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: #475569;
+  font-size: 1rem;
+  max-width: 720px;
+}
+
+.panels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.2rem;
+}
+
+.panel-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.bonus-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group.inline {
+  flex-direction: row;
+  gap: 16px;
+}
+
+.input-group.inline > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5f5;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fdfdff;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+small {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.instructions-panel {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 70%);
+}
+
+.rules-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #1e293b;
+}
+
+.rules-list li {
+  line-height: 1.4;
+}
+
+.preview-panel .code-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.code-block {
+  width: 100%;
+  min-height: 210px;
+  border-radius: 20px;
+  border: 0;
+  background: #0f172a;
+  color: #f1f5f9;
+  font-family: 'Space Grotesk', 'JetBrains Mono', 'SFMono-Regular', Menlo,
+    Monaco, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.95rem;
+  padding: 18px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.copy-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.final-phrase {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 32px 16px 48px;
+  }
+
+  .input-group.inline {
+    flex-direction: column;
+  }
+
+  .panel {
+    padding: 22px;
+  }
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formatador de Bonificações</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="hero-label">assistente operacional</p>
+        <h1>Formatador de Bonificações</h1>
+        <p class="hero-subtitle">
+          Cole os dados brutos do pedido e preencha os campos abaixo.
+          O bloco final já sai pronto para enviar no padrão obrigatório.
+        </p>
+      </header>
+
+      <section class="panels-grid">
+        <section class="panel form-panel">
+          <div class="panel-header">
+            <h2>Dados obrigatórios</h2>
+            <p>Preencha exatamente como recebeu a solicitação.</p>
+          </div>
+
+          <form class="bonus-form">
+            <div class="input-group">
+              <label for="aut-sup">AUT SUP</label>
+              <input
+                id="aut-sup"
+                type="text"
+                placeholder="Ex.: 123456 / 7891011"
+              />
+              <small>Número do pedido móvel. Deixe vazio se não existir.</small>
+            </div>
+
+            <div class="input-group">
+              <label for="pedido">PEDIDO</label>
+              <input
+                id="pedido"
+                type="text"
+                placeholder="Ex.: AU123456 / AU789101"
+              />
+              <small>Número do pedido Aurora.</small>
+            </div>
+
+            <div class="input-group">
+              <label for="itens">ITENS NEGOCIADOS</label>
+              <textarea
+                id="itens"
+                rows="3"
+                placeholder="Ex.: 123456 - 10kg / 654321 - 10kg"
+              ></textarea>
+              <small>
+                Use kg quando informado ou repita o volume total para todos.
+              </small>
+            </div>
+
+            <div class="input-group">
+              <label for="bonificacao">BONIFICAÇÃO</label>
+              <textarea
+                id="bonificacao"
+                rows="3"
+                placeholder="Ex.: 123456 - 10cx / 654321 - 8un"
+              ></textarea>
+              <small>
+                padronize pacotes como <strong>un</strong> e caixas como
+                <strong>cx</strong>.
+              </small>
+            </div>
+
+            <div class="input-group">
+              <label for="motivo">MOTIVO</label>
+              <textarea
+                id="motivo"
+                rows="2"
+                placeholder="Ex.: Evento loja nova 12/12"
+              ></textarea>
+            </div>
+
+            <div class="input-group inline">
+              <div>
+                <label for="cnpj">CNPJ</label>
+                <input id="cnpj" type="text" placeholder="somente números" />
+                <small>Remova pontos, barras e traços.</small>
+              </div>
+              <div>
+                <label for="data">DATA ENTREGA</label>
+                <input id="data" type="text" placeholder="DD/MM/AAAA" />
+                <small>Sempre complete com o ano.</small>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="observacoes">Observações adicionais</label>
+              <textarea
+                id="observacoes"
+                rows="2"
+                placeholder="Endereço alternativo, contato, evento etc."
+              ></textarea>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel instructions-panel">
+          <div class="panel-header">
+            <h2>Checklist rápido</h2>
+            <p>Revise antes de liberar a bonificação.</p>
+          </div>
+          <ul class="rules-list">
+            <li>Não invente dados; use apenas o que foi informado.</li>
+            <li>Sem pontos ou traços no CNPJ. Apenas números.</li>
+            <li>Data sempre no formato completo DD/MM/AAAA.</li>
+            <li>
+              Quando não souber o kg individual, repita o volume total informado.
+            </li>
+            <li>
+              Padronize pacotes para <strong>un</strong> e caixas para
+              <strong>cx</strong>.
+            </li>
+            <li>
+              Endereço alternativo ou alerta importante vai após a data de
+              entrega.
+            </li>
+          </ul>
+        </section>
+
+        <section class="panel preview-panel">
+          <div class="panel-header">
+            <h2>Bloco formatado</h2>
+            <p>Use este template, substituindo apenas os valores.</p>
+          </div>
+
+          <div class="code-wrapper">
+            <textarea class="code-block" spellcheck="false">AUT SUP:
+PEDIDO:
+ITENS NEGOCIADOS:
+BONIFICAÇÃO:
+MOTIVO:
+CNPJ:
+DATA ENTREGA:
+</textarea>
+            <p class="copy-hint">
+              Se houver observação, adicione logo após a data de entrega.
+            </p>
+          </div>
+
+          <p class="final-phrase">Pronto! Copia e cola. Manda o próximo! 🚀</p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
