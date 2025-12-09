@@ -22,146 +22,113 @@
   <body>
     <main class="app-shell">
       <header class="hero">
-        <p class="hero-label">assistente operacional</p>
+        <p class="hero-label">assistente + ia</p>
         <h1>Formatador de Bonificações</h1>
         <p class="hero-subtitle">
-          Cole os dados brutos do pedido e preencha os campos abaixo.
-          O bloco final já sai pronto para enviar no padrão obrigatório.
+          Cole qualquer solicitação de bonificação e deixe que o assistente organize
+          tudo automaticamente. Ajuste instantâneo, com apoio opcional de IA.
         </p>
       </header>
 
-      <section class="panels-grid">
-        <section class="panel form-panel">
+      <section class="workspace">
+        <div class="panel input-panel">
           <div class="panel-header">
-            <h2>Dados obrigatórios</h2>
-            <p>Preencha exatamente como recebeu a solicitação.</p>
+            <h2>Entrada livre</h2>
+            <p>Cole o texto bruto do e-mail, formulário ou áudio transcrito.</p>
           </div>
 
-          <form class="bonus-form">
-            <div class="input-group">
-              <label for="aut-sup">AUT SUP</label>
-              <input
-                id="aut-sup"
-                type="text"
-                placeholder="Ex.: 123456 / 7891011"
-              />
-              <small>Número do pedido móvel. Deixe vazio se não existir.</small>
-            </div>
+          <textarea
+            id="raw-input"
+            class="raw-input"
+            rows="14"
+            placeholder="Cole aqui a solicitação completa..."
+          ></textarea>
 
-            <div class="input-group">
-              <label for="pedido">PEDIDO</label>
-              <input
-                id="pedido"
-                type="text"
-                placeholder="Ex.: AU123456 / AU789101"
-              />
-              <small>Número do pedido Aurora.</small>
-            </div>
-
-            <div class="input-group">
-              <label for="itens">ITENS NEGOCIADOS</label>
-              <textarea
-                id="itens"
-                rows="3"
-                placeholder="Ex.: 123456 - 10kg / 654321 - 10kg"
-              ></textarea>
-              <small>
-                Use kg quando informado ou repita o volume total para todos.
-              </small>
-            </div>
-
-            <div class="input-group">
-              <label for="bonificacao">BONIFICAÇÃO</label>
-              <textarea
-                id="bonificacao"
-                rows="3"
-                placeholder="Ex.: 123456 - 10cx / 654321 - 8un"
-              ></textarea>
-              <small>
-                padronize pacotes como <strong>un</strong> e caixas como
-                <strong>cx</strong>.
-              </small>
-            </div>
-
-            <div class="input-group">
-              <label for="motivo">MOTIVO</label>
-              <textarea
-                id="motivo"
-                rows="2"
-                placeholder="Ex.: Evento loja nova 12/12"
-              ></textarea>
-            </div>
-
-            <div class="input-group inline">
-              <div>
-                <label for="cnpj">CNPJ</label>
-                <input id="cnpj" type="text" placeholder="somente números" />
-                <small>Remova pontos, barras e traços.</small>
-              </div>
-              <div>
-                <label for="data">DATA ENTREGA</label>
-                <input id="data" type="text" placeholder="DD/MM/AAAA" />
-                <small>Sempre complete com o ano.</small>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="observacoes">Observações adicionais</label>
-              <textarea
-                id="observacoes"
-                rows="2"
-                placeholder="Endereço alternativo, contato, evento etc."
-              ></textarea>
-            </div>
-          </form>
-        </section>
-
-        <section class="panel instructions-panel">
-          <div class="panel-header">
-            <h2>Checklist rápido</h2>
-            <p>Revise antes de liberar a bonificação.</p>
+          <div class="actions-row">
+            <button type="button" id="clear-input" class="ghost-btn">
+              Limpar texto
+            </button>
+            <button type="button" id="demo-input" class="ghost-btn">
+              Usar exemplo rápido
+            </button>
           </div>
-          <ul class="rules-list">
-            <li>Não invente dados; use apenas o que foi informado.</li>
-            <li>Sem pontos ou traços no CNPJ. Apenas números.</li>
-            <li>Data sempre no formato completo DD/MM/AAAA.</li>
-            <li>
-              Quando não souber o kg individual, repita o volume total informado.
-            </li>
-            <li>
-              Padronize pacotes para <strong>un</strong> e caixas para
-              <strong>cx</strong>.
-            </li>
-            <li>
-              Endereço alternativo ou alerta importante vai após a data de
-              entrega.
-            </li>
-          </ul>
-        </section>
 
-        <section class="panel preview-panel">
+          <div class="ai-card">
+            <div class="panel-header compact">
+              <h3>Conexão com IA</h3>
+              <p>Envie para o GPT e receba uma revisão inteligente.</p>
+            </div>
+            <form id="ai-form">
+              <label for="ai-key">Chave da OpenAI</label>
+              <input
+                id="ai-key"
+                type="password"
+                placeholder="sk-..."
+                autocomplete="off"
+              />
+              <label for="ai-model">Modelo</label>
+              <select id="ai-model">
+                <option value="gpt-4o-mini">gpt-4o-mini</option>
+                <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+                <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
+              </select>
+              <button type="submit" class="primary-btn">Gerar com IA</button>
+              <small>
+                A chave fica apenas no seu navegador.
+                <a
+                  href="https://platform.openai.com/api-keys"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Criar/gerenciar chave</a
+                >
+              </small>
+              <p id="ai-status" class="muted"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel output-panel">
           <div class="panel-header">
-            <h2>Bloco formatado</h2>
-            <p>Use este template, substituindo apenas os valores.</p>
+            <div>
+              <h2>Bloco formatado</h2>
+              <p>Atualiza automaticamente a cada caractere.</p>
+            </div>
+            <span class="chip live-chip">Live preview</span>
           </div>
 
           <div class="code-wrapper">
-            <textarea class="code-block" spellcheck="false">AUT SUP:
-PEDIDO:
-ITENS NEGOCIADOS:
-BONIFICAÇÃO:
-MOTIVO:
-CNPJ:
-DATA ENTREGA:
-</textarea>
-            <p class="copy-hint">
-              Se houver observação, adicione logo após a data de entrega.
-            </p>
+            <textarea
+              id="formatted-output"
+              class="code-block"
+              spellcheck="false"
+              readonly
+            ></textarea>
+            <div class="copy-row">
+              <button id="copy-btn" class="primary-btn">Copiar bloco</button>
+              <span id="copy-feedback" class="muted">Colou? Confere o CNPJ.</span>
+            </div>
           </div>
 
           <p class="final-phrase">Pronto! Copia e cola. Manda o próximo! 🚀</p>
-        </section>
+        </div>
+      </section>
+
+      <section class="panel rules-panel">
+        <div class="panel-header">
+          <h2>Checklist inteligente</h2>
+          <p>Boas práticas aplicadas pelo parser automático e pela IA.</p>
+        </div>
+        <ul class="rules-list">
+          <li>Data sempre completa (DD/MM/AAAA). Se vier 12/12 → vira 12/12/2025.</li>
+          <li>CNPJ é higienizado e fica somente com números.</li>
+          <li>Bonificação troca pc/pct/pacote por <strong>un</strong> e padroniza caixas para <strong>cx</strong>.</li>
+          <li>Quando faltar kg individual, repita o total para cada item.</li>
+          <li>Observações especiais vão após a data de entrega.</li>
+          <li>IA usa o mesmo padrão e nunca adiciona textos extras.</li>
+        </ul>
       </section>
     </main>
+
+    <script src="main.js"></script>
   </body>
 </html>
