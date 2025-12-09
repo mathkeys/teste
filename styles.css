@@ -34,9 +34,12 @@ body.site-body::before,
 body.site-body::after {
   content: '';
   position: fixed;
-  inset: 0;
+  width: 65vw;
+  height: 65vw;
   pointer-events: none;
   z-index: -2;
+  filter: blur(50px);
+  opacity: 0.6;
 }
 
 body.site-body::before {
@@ -639,24 +642,6 @@ nav,
   }
 }
 
-@keyframes neonBounce {
-  0% {
-    transform: translate(-15%, -10%);
-  }
-  25% {
-    transform: translate(10%, 15%);
-  }
-  50% {
-    transform: translate(20%, -5%);
-  }
-  75% {
-    transform: translate(-5%, 20%);
-  }
-  100% {
-    transform: translate(-15%, -10%);
-  }
-}
-
 @keyframes sweep {
   0% {
     transform: translateX(-10%);
@@ -677,8 +662,56 @@ nav,
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+@keyframes neonBounce {
+  0% {
+    transform: translate(-10vw, -6vh);
+  }
+  25% {
+    transform: translate(8vw, 12vh);
+  }
+  50% {
+    transform: translate(18vw, -4vh);
+  }
+  75% {
+    transform: translate(-6vw, 18vh);
+  }
+  100% {
+    transform: translate(-10vw, -6vh);
+  }
+}
+
+@keyframes dvdGlow {
+  0% {
+    transform: translate(-8vw, -6vh);
+  }
+  25% {
+    transform: translate(15vw, 12vh);
+  }
+  50% {
+    transform: translate(22vw, -5vh);
+  }
+  75% {
+    transform: translate(-4vw, 22vh);
+  }
+  100% {
+    transform: translate(-8vw, -6vh);
+  }
+}
+
+@keyframes dvdGlowAlt {
+  0% {
+    transform: translate(12vw, 8vh);
+  }
+  30% {
+    transform: translate(-12vw, 16vh);
+  }
+  55% {
+    transform: translate(-18vw, -8vh);
+  }
+  80% {
+    transform: translate(14vw, -14vh);
+  }
+  100% {
+    transform: translate(12vw, 8vh);
   }
 }
