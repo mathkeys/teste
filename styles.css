@@ -548,13 +548,18 @@ body.site-body::after {
 .night-mode .hero h1,
 .night-mode .panel-header h2,
 .night-mode .panel-header h3,
-.night-mode .status-card span {
+.night-mode .status-card span,
+.night-mode .glass-panel h2,
+.night-mode .glass-panel-sub h2 {
   color: #fff9ef;
 }
 
 .night-mode .hero-subtitle,
 .night-mode .panel-header p,
-.night-mode .text-btn {
+.night-mode .text-btn,
+.night-mode .glass-panel p,
+.night-mode .glass-panel span,
+.night-mode .glass-panel-sub p {
   color: rgba(255, 235, 215, 0.8);
 }
 
