@@ -169,9 +169,16 @@
                     >Criar/gerenciar chave</a
                   >
                 </small>
-                <button type="button" id="forget-key" class="text-btn">
-                  Limpar chave salva
-                </button>
+                <div class="ia-state">
+                  <div class="ia-indicator" id="ia-indicator" hidden>
+                    <span class="ia-spinner"></span>
+                    <span class="ia-check" hidden>✓</span>
+                    <span id="ia-timer" class="ia-timer"></span>
+                  </div>
+                  <button type="button" id="forget-key" class="text-btn">
+                    Limpar chave salva
+                  </button>
+                </div>
               </div>
               <p id="ai-status" class="text-xs text-cyan-200"></p>
             </form>

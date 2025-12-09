@@ -60,10 +60,15 @@ const issuesList = document.getElementById('issues-list');
 const issuesCount = document.getElementById('issues-count');
 const historyList = document.getElementById('history-list');
 const clearHistoryButton = document.getElementById('clear-history');
+const iaIndicator = document.getElementById('ia-indicator');
+const iaSpinner = iaIndicator?.querySelector('.ia-spinner');
+const iaCheck = iaIndicator?.querySelector('.ia-check');
+const iaTimer = document.getElementById('ia-timer');
 
 const THEME_STORAGE = 'formatadorBonificacoesTema';
 const HISTORY_STORAGE = 'formatadorBonificacoesHistorico';
 let lastGenerationSource = 'manual';
+let iaStartTime = null;
 
 const demoText = `AUT SUP: 874563
 Pedido Aurora: AU-998877 / AU-998878
@@ -129,7 +134,12 @@ function init() {
   if (aiForm) {
     aiForm.addEventListener('submit', async (event) => {
       event.preventDefault();
-      await sendToAI();
+      iaStart();
+      try {
+        await sendToAI();
+      } finally {
+        iaStop();
+      }
     });
   }
 
@@ -144,7 +154,12 @@ function init() {
   });
 
   quickAiButton?.addEventListener('click', async () => {
-    await sendToAI();
+    iaStart();
+    try {
+      await sendToAI();
+    } finally {
+      iaStop();
+    }
   });
 
   clearHistoryButton?.addEventListener('click', () => {
@@ -658,6 +673,31 @@ function setupPointerGlow() {
     document.body.style.setProperty('--pointer-x', xPercent);
     document.body.style.setProperty('--pointer-y', yPercent);
   });
+}
+
+function iaStart() {
+  if (!iaIndicator) return;
+  iaStartTime = Date.now();
+  iaIndicator.hidden = false;
+  iaSpinner?.removeAttribute('hidden');
+  iaCheck?.setAttribute('hidden', '');
+  if (iaTimer) {
+    iaTimer.textContent = 'calculando...';
+  }
+}
+
+function iaStop() {
+  if (!iaIndicator) return;
+  const elapsed = iaStartTime ? ((Date.now() - iaStartTime) / 1000).toFixed(1) : '0.0';
+  iaSpinner?.setAttribute('hidden', '');
+  iaCheck?.removeAttribute('hidden');
+  if (iaTimer) {
+    iaTimer.textContent = `${elapsed}s`;
+  }
+  setTimeout(() => {
+    iaIndicator.hidden = true;
+    iaCheck?.setAttribute('hidden', '');
+  }, 2500);
 }
 
 init();
