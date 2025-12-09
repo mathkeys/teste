@@ -21,7 +21,7 @@
   box-sizing: border-box;
 }
 
-body {
+body.site-body {
   margin: 0;
   font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
